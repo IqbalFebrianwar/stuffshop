@@ -19,7 +19,8 @@ const checkout = ({ user, product }) => {
     const onSubmitCheckout = () => {
         setIsloadingCheckout(true)
         router.put("/checkout", {}, {
-            onFinish: () => setIsloadingCheckout(false)
+            onFinish: () => setIsloadingCheckout(false),
+            onSuccess: () => router.get("/")
         })
     }
 

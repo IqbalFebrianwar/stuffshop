@@ -1,12 +1,14 @@
 import Layout from "@/Layouts/layout"
-import { Link, router } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 import Head from "@/Components/product/Head"
 import { useState } from "react"
 
 const product = ({ product }) => {
+    const {url} = usePage()
     const [amount, setAmount] = useState(null)
     const [errorAmount, setErrorAmount] = useState(null)
     const [isLoadingAddCart, setIsLoadingAddCat] = useState(false)
+    const [isLoadingPurchase, setIsloadingPurchase] = useState(false)
 
     const addToCart = async () => {
         setErrorAmount(null)
@@ -24,6 +26,20 @@ const product = ({ product }) => {
         })
     }
 
+    const checkout = () => {
+        setErrorAmount(null)
+        if (amount == null) {
+            setErrorAmount("Determine shopping amount")
+            return
+        }
+
+        setIsloadingPurchase(true)
+        router.post(url, [{id: product.id, amount}], {
+            onSuccess: () => router.get('/checkout'),
+            onFinish: () => setIsloadingPurchase(false)
+        })
+    }
+
     return <>
         <Head title={product.name} />
 
@@ -33,7 +49,7 @@ const product = ({ product }) => {
             <div className="mt-5 flex gap-x-6 justify-around">
                 <section className="w-9/12">
                     <h1 className="text-4xl font-bold">{product.name}</h1>
-                    <p>Sold 13</p>
+                    {/* <p>Sold 13</p> */}
                     <h1 className="text-2xl font-semibold">{new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(product.price)}</h1>
 
                     <h1 className="text-xl font-semibold mt-5">Product Description</h1>
@@ -58,7 +74,10 @@ const product = ({ product }) => {
                             <label className="label"><span className="label-text-alt text-red-400">{errorAmount}</span></label>
 
                             <div className="mt-2">
-                                <Link href="/checkout" className="btn btn-primary rounded-xl btn-block">Purchase Now</Link>
+                                <button onClick={checkout} href="/checkout" className="btn btn-primary rounded-xl btn-block">
+                                    { isLoadingPurchase ? <div className="loading loading-spinner"></div> : null }
+                                    <span>Purchase Now</span>
+                                </button>
                                 <button className="btn btn-primary btn-outline rounded-xl btn-block mt-2" onClick={addToCart} disabled={isLoadingAddCart}>
                                     { isLoadingAddCart ? <div className="loading loading-spinner"></div> : null }
                                     Add to Cart

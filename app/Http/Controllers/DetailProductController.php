@@ -26,4 +26,8 @@ class DetailProductController extends Controller
             ]
         ]);
     }
+
+    public function checkout(Request $req){
+        session(['checkout' => $req->all()]);
+    }
 }
