@@ -5,8 +5,9 @@ const cart = ({ product }) => {
     const checkout = () => {
         let data = []
         product.map(e => data.push({id: e.id_product, amount: e.amount}))
-        router.post('/cart', data)
-        router.get("/checkout");
+        router.post('/cart', data, {
+            onSuccess: () => router.get("/checkout")
+        })
     }
 
     return <>
@@ -49,7 +50,7 @@ const cart = ({ product }) => {
                     <h1 className="text-xl font-semibold">Total shopping</h1>
                     <div className="flex justify-between items-center mt-4">
                         <h1 className="text-gray-700">Total</h1>
-                        <h1 className="text-xl font-semibold">{new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(product.reduce((sum, e) => sum + e.price, 0))}</h1>
+                        <h1 className="text-xl font-semibold">{new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(product.reduce((sum, e) => sum + (e.price * e.amount), 0))}</h1>
                     </div>
 
                     <button className="mt-3 btn btn-block btn-primary rounded-xl" onClick={checkout}>Buy({product.length})</button>
