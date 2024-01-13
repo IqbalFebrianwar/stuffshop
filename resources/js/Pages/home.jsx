@@ -9,8 +9,8 @@ const home = ({product}) => {
                 <div className="card-body">
                     <h2 className="card-title">{e.name}</h2>
                     <p>{ new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(e.price) }</p>
-                    <div className="card-actions justify-end">
-                        <Link href={`${e.id_user}/${e.id}`} className="btn btn-primary">Buy Now</Link>
+                    <div className="card-actions">
+                        <Link href={`${e.id_user}/${e.id}`} className="btn w-full btn-primary">Beli</Link>
                     </div>
                 </div>
             </div>)

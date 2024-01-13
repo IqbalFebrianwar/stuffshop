@@ -43,10 +43,10 @@ const product = ({ product }) => {
     return <>
         <Head title={product.name} />
 
-        <div>
-            <img src={product.photo} alt="" className="w-full h-auto rounded-xl" />
+        <div className="w-full flex space-x-40 justify-center">
+            <img src={product.photo} alt="" className="w-96 h-80 rounded-xl" />
 
-            <div className="mt-5 flex gap-x-6 justify-around">
+            <div className="mt-5 grid gap-x-6 justify-around">
                 <section className="w-9/12">
                     <h1 className="text-4xl font-bold">{product.name}</h1>
                     {/* <p>Sold 13</p> */}
@@ -56,9 +56,8 @@ const product = ({ product }) => {
                     <p className="mt-2">{product.description}</p>
                 </section>
 
-                <section>
-                    <div className="rounded-xl shadow-lg w-full p-6">
-                        <p className="text-xl font-semibold">Set purchase quantity</p>
+                <section className="mt-20">
+                    <div className="rounded-xl shadow w-full p-6">
 
                         <label className="form-control w-full mt-2">
                             <div className="label">
@@ -66,7 +65,7 @@ const product = ({ product }) => {
                             </div>
 
                             <select className="select select-bordered rounded-xl" value={amount} onChange={e => setAmount(e.target.value)}>
-                                <option disabled selected>Choose order quantity</option>
+                                <option disabled selected>quantity</option>
                                 {
                                     Array.from({ length: product.stock }).map((_, index) => <option key={index} value={index + 1}>{index + 1}</option>)
                                 }
@@ -76,11 +75,11 @@ const product = ({ product }) => {
                             <div className="mt-2">
                                 <button onClick={checkout} href="/checkout" className="btn btn-primary rounded-xl btn-block">
                                     { isLoadingPurchase ? <div className="loading loading-spinner"></div> : null }
-                                    <span>Purchase Now</span>
+                                    <span>Beli Sekarang</span>
                                 </button>
                                 <button className="btn btn-primary btn-outline rounded-xl btn-block mt-2" onClick={addToCart} disabled={isLoadingAddCart}>
                                     { isLoadingAddCart ? <div className="loading loading-spinner"></div> : null }
-                                    Add to Cart
+                                    Masuk Keranjang
                                 </button>
                             </div>
                         </label>

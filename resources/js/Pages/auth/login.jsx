@@ -19,13 +19,9 @@ const login = () => {
 
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
-                <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Login now!</h1>
-                    <p className="py-6">Welcome back! We are very happy to see you here. To continue your adventure, please enter your unique credentials below. By filling in your characterful username and secret password, you will open the door to our exclusive world. We look forward to welcoming you and hope this experience will be an unforgettable journey. If you forget your password or experience any other difficulties, please feel free to use the recovery options provided. Thank you for choosing us to be part of your online journey!</p>
-                    <p>Don't have an account yet? <Link href="/auth/register" className="link">Register Now</Link></p>
-                </div>
-                <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 rounded-xl">
+                <div className="card shrink-0 w-full max-w-sm shadow bg-base-100 rounded-xl">
                     <form className="card-body" onSubmit={onSubmit}>
+                    <h1 className="text-lg font-bold">Selamat Datang, Login Sekarang!!!</h1>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -46,6 +42,7 @@ const login = () => {
                                 <span>Login</span>
                             </button>
                         </div>
+                        <p>Belum Mempunyai Akun? <Link href="/auth/register" className="link">Daftar Sekarang</Link></p>
                     </form>
                 </div>
             </div>

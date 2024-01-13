@@ -24,6 +24,6 @@ export default {
     ],
 
     daisyui: {
-        themes: ['lofi']
+        themes: ['lofi', 'night']
     }
 };

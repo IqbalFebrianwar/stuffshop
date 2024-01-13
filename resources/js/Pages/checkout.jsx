@@ -29,30 +29,30 @@ const checkout = ({ user, product }) => {
             <title>Checkout</title>
         </Head>
 
-        <h1 className="text-2xl font-semibold">Checkout</h1>
+        <h1 className="text-2xl font-semibold">Pembayaran</h1>
 
         <div className="mt-3 flex gap-x-5">
             <section className="w-9/12">
-                <div className="rounded-xl shadow-lg p-6">
-                    <h1 className="text-xl font-semibold text-gray-400 uppercase">Shipping Address</h1>
+                <div className="rounded-xl shadow p-6">
+                    <h1 className="text-xl font-semibold text-black">Alamat</h1>
                     <p className="mt-2">{user.address}</p>
                     <button className="btn btn-sm btn-primary rounded-xl btn-outline mt-2" onClick={() => document.querySelector("#address_modal").showModal()}>Change Address</button>
                 </div>
 
-                <div className="rounded-xl shadow-lg p-6">
-                    <h1 className="text-xl font-semibold text-gray-400 uppercase">Payment Method</h1>
+                <div className="rounded-xl shadow p-6">
+                    <h1 className="text-xl font-semibold text-black">Metode Pembayaran</h1>
                     <div className="mt-2">
                         <div className="form-control w-fit">
                             <label className="label cursor-pointer gap-x-2">
                                 <input type="radio" name="radio-10" className="radio" checked />
-                                <span className="label-text">Paypal</span>
+                                <span className="label-text">Indomaret</span>
                             </label>
                         </div>
                     </div>
                 </div>
 
                 {
-                    product.map(e => <div className="mt-10 shadow-xl rounded-xl p-6 flex gap-x-2" key={e.id}>
+                    product.map(e => <div className="mt-10 shadow rounded-xl p-6 flex gap-x-2" key={e.id}>
                         <div className="avatar">
                             <div className="w-24 mask mask-squircle">
                                 <img src={e.photo} />
@@ -60,34 +60,29 @@ const checkout = ({ user, product }) => {
                         </div>
 
                         <section className="w-9/12">
-                            <h1 className="font-semibold">{e.name}</h1>
-                            <p>{e.description}</p>
-                            <p className="font-semibold">{e.amount}x</p>
-                        </section>
-
-                        <section className="flex-1">
-                            <h1 className="text-2xl font-semibold">{ new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(e.price * e.amount) }</h1>
+                            <h1 className="font-semibold">{ e.name }</h1>
+                            <p>{ e.description }</p>
+                            <p>{ e.amount }x</p>
+                            <h1 className="text-xl mt-5 font-semibold">{ new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(e.price * e.amount) }</h1>
                         </section>
                     </div>)
                 }
-            </section>
-
-            <section className="flex-1">
-                <div className="p-6 rounded xl shadow-lg">
-                    <div className="w-full shadow-lg rounded-xl p-6">
-                        <h1 className="text-xl font-semibold">Total shopping</h1>
+                <div className="p-6 rounded xl shadow">
+                    <div className="w-full rounded-xl p-6">
+                        <h1 className="text-xl font-semibold">Semua Total</h1>
                         <div className="flex justify-between items-center mt-4">
                             <h1 className="text-gray-700">Total</h1>
-                            <h1 className="text-xl font-semibold">{new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(product.reduce((sum, e) => sum + e.price, 0))}</h1>
+                            <h1 className="text-xl font-semibold">{new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(product.reduce((sum, e) => sum + (e.price * e.amount), 0))}</h1>
                         </div>
 
                         <button className="mt-3 btn btn-block btn-primary rounded-xl" disabled={isLoadingCheckout} onClick={onSubmitCheckout}>
                             { isLoadingCheckout ? <span className="loading loading-spinner"></span> : null }
-                            <span>Buy</span>
+                            <span>Beli</span>
                         </button>
                     </div>
                 </div>
             </section>
+
         </div>
 
         <dialog id="address_modal" className="modal">
