@@ -37,4 +37,12 @@ class CartController extends Controller
             "amount" => $req->amount
         ]);
     }
+
+    public function delete($id){
+        Cart::find($id)->delete();
+    }
+
+    public function checkout(Request $req){
+        session(['checkout' => $req->all()]);
+    }
 }

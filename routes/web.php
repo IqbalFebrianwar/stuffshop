@@ -38,7 +38,11 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::get("/search/{query}", [SearchController::class, 'searchQuery']);
     Route::get("/cart", [CartController::class, 'index']);
     Route::put('/cart', [CartController::class, 'store']);
+    Route::post('/cart', [CartController::class, 'checkout']);
+    Route::delete("/cart/{id}", [CartController::class, 'delete']);
     Route::get("/checkout", [CheckoutController::class, 'index']);
+    Route::post("/checkout", [CheckoutController::class, 'updateAddress']);
+    Route::put("/checkout", [CheckoutController::class, 'checkout']);
     Route::get("/add-product", [AddProductController::class, 'index']);
     Route::post("/add-product", [AddProductController::class, 'store']);
     Route::get("/{profile_id}/{product_id}", [DetailProductController::class, 'index']);

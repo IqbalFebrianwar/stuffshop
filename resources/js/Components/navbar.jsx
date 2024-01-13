@@ -1,9 +1,14 @@
-import { Link, router } from "@inertiajs/react"
+import { Link, router, useForm, usePage } from "@inertiajs/react"
 
 const navbar = () => {
+    const {data, setData} = useForm({
+        search: null
+    })
+    const {props} = usePage()
+
     const onSubmitSearching = e => {
         e.preventDefault()
-        router.get("/search/nasduk")
+        router.get(`/search/${data.search}`)
     }
 
     return <div className="navbar bg-base-100">
@@ -13,7 +18,7 @@ const navbar = () => {
         <div className="flex-none gap-2">
             <form onSubmit={onSubmitSearching}>
                 <div className="form-control">
-                    <input type="search" placeholder="Search" className="input input-bordered w-24 rounded-xl md:w-auto" />
+                    <input type="text" placeholder="Search" className="input input-bordered w-24 rounded-xl md:w-auto" value={data.search} onChange={e => setData("search", e.target.value)} />
                 </div>
             </form>
             <Link href="/cart" className="btn btn-circle btn-ghost">
@@ -24,7 +29,7 @@ const navbar = () => {
             <div className="dropdown dropdown-end">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
-                        <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                        <img alt="Tailwind CSS Navbar component" src={`https://ui-avatars.com/api/?name=${props.auth.user}`} />
                     </div>
                 </div>
                 <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">

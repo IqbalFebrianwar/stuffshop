@@ -1,21 +1,21 @@
 import Layout from "@/Layouts/layout"
 import { Head, Link } from "@inertiajs/react"
 
-const search = () => {
+const search = ({ product, query }) => {
     return <>
         <Head>
-            <title>Search nasduk</title>
+            <title>{ `Search ${query}` }</title>
         </Head>
 
         <div className="grid grid-cols-4 gap-5">
             {
-                Array.from({ length: 20 }).map(e => <div className="card w-full bg-base-100 shadow-xl rounded-xl">
-                    <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+                product.map(e => <div className="card w-full bg-base-100 shadow-xl rounded-xl" key={e.id}>
+                    <figure><img src={e.photo} alt="Shoes" /></figure>
                     <div className="card-body">
-                        <h2 className="card-title">Shoes!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
+                        <h2 className="card-title">{ e.name }</h2>
+                        <p>{ new Intl.NumberFormat("id-ID", { style: 'currency', currency: 'IDR' }).format(e.price) }</p>
                         <div className="card-actions justify-end">
-                            <Link href="/eugene/tempe" className="btn btn-primary">Buy Now</Link>
+                            <Link href={`/${e.id_user}/${e.id}`} className="btn btn-primary">Buy Now</Link>
                         </div>
                     </div>
                 </div>)
